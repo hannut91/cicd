@@ -7,3 +7,8 @@ install:
 
 script:
     - npm test
+
+after_success:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - docker build -t hannut1/cicd:${TRAVIS_COMMIT::7} .
+    - docker push hannut1/cicd:${TRAVIS_COMMIT::7}
